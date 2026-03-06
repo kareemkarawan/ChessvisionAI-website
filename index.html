@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Game Analysis</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>Chess Game Analysis</h1>
+    </header>
+
+    <div class="content">
+        <div class="chessboard-container">
+            <div class="chessboard" id="chessboard"></div>
+        </div>
+
+        <div class="evaluation-container">
+            <div class="evaluation-bar">
+                <div id="black-bar" class="black-section"></div>
+                <div id="white-bar" class="white-section"></div>
+            </div>
+        </div>
+
+        <div class="settings-sidebar">
+            <div class="best-move-box">
+                <h3>Best Move</h3>
+                <p>Move sequence: <span id="best-move"></span></p>
+                <p>Evaluation: <span id="move-eval-num"></span></p>
+            </div>
+            <div id="fenWindow" class="fen-window"></div>
+            <div class="checkbox-group">
+                <label><input type="checkbox" id="whiteKingside" checked> White King-side Castling</label>
+                <label><input type="checkbox" id="whiteQueenside" checked> White Queen-side Castling</label>
+                <br>
+                <label><input type="checkbox" id="blackKingside" checked> Black King-side Castling</label>
+                <label><input type="checkbox" id="blackQueenside" checked> Black Queen-side Castling</label>
+            </div>
+
+            <div id="move-info" class="controls">
+                <button class="btn" onclick="get_FEN_from_input()">Analyze Position</button>
+                <input type="file" id="uploadInput" accept="image/*">
+                <button class="btn" onclick="uploadImage()">Upload Image</button>
+                <input type="file" id="uploadInputCamera" accept="image/*" capture="environment">
+                <button class="btn" onclick="uploadImageCamera()">Capture Image</button>
+                <img id="preview" style="max-width: 100%; display: none;">
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
