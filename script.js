@@ -234,6 +234,8 @@ function updateFENWindow(fen){
     document.getElementById("fenWindow").textContent = `FEN: ${fen}`;
 }
 
-// Initial render
-drawBoard(initialBoard);
-updateFENWindow(currentFEN);
+// Initial render once DOM content is loaded
+window.addEventListener('DOMContentLoaded', () => {
+    drawBoard(initialBoard);
+    updateFENWindow(currentFEN);
+});
