@@ -112,6 +112,8 @@ header h1 {
     background-color: rgba(0, 255, 0, 0.3) !important;
 }
 
+/* remove green board effect by not using possible-move in JS */
+
 .fen-window {
     margin-top: 0;
     padding: 10px;

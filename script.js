@@ -33,16 +33,7 @@ function selectPiece(row, col) {
     selectedSquare = {row, col};
     const square = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
     square.classList.add('selected');
-    // For simplicity, allow moving to any empty square or capture any piece
-    possibleMoves = [];
-    for(let r=0; r<8; r++){
-        for(let c=0; c<8; c++){
-            if(initialBoard[r][c] === "--" || (r !== row || c !== col)) {
-                possibleMoves.push({row: r, col: c});
-            }
-        }
-    }
-    highlightPossibleMoves();
+    // don't precompute possible moves, will just allow dropping anywhere for now
 }
 
 function handleSquareClick(event) {
@@ -52,20 +43,17 @@ function handleSquareClick(event) {
 
     if (selectedSquare) {
         if (selectedSquare.row === row && selectedSquare.col === col) {
-            // Deselect
             clearSelection();
-        } else if (possibleMoves.some(move => move.row === row && move.col === col)) {
-            // Move piece
-            movePiece(selectedSquare.row, selectedSquare.col, row, col);
-            clearSelection();
+            return;
         }
-    } else {
-        // Select piece if exists
-        if (initialBoard[row][col] !== "--") {
-            selectPiece(row, col);
-        }
+        movePiece(selectedSquare.row, selectedSquare.col, row, col);
+        clearSelection();
+    } else if (initialBoard[row][col] !== "--") {
+        selectPiece(row, col);
     }
 }
+
+
 
 function clearSelection() {
     selectedSquare = null;
@@ -85,7 +73,9 @@ function movePiece(fromRow, fromCol, toRow, toCol) {
     const piece = initialBoard[fromRow][fromCol];
     initialBoard[fromRow][fromCol] = "--";
     initialBoard[toRow][toCol] = piece;
-    drawBoard(initialBoard);
+    // update just the two affected squares
+    updateSquare(fromRow, fromCol);
+    updateSquare(toRow, toCol);
     // Update FEN
     currentFEN = boardToFEN(initialBoard);
     updateFENWindow(currentFEN);
@@ -142,6 +132,25 @@ function drawBoard(board) {
             }
             chessboard.appendChild(square);
         }
+    }
+}
+
+// Update a single square based on current board state
+function updateSquare(row, col) {
+    const square = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+    if (!square) return;
+    square.innerHTML = '';
+    const piece = initialBoard[row][col];
+    if (piece !== "--") {
+        const imgDiv = document.createElement('div');
+        imgDiv.classList.add('piece');
+        imgDiv.style.backgroundImage = `url(${pieceImages[piece]})`;
+        imgDiv.dataset.piece = piece;
+        imgDiv.addEventListener('click', (e) => {
+            e.stopPropagation();
+            selectPiece(row, col);
+        });
+        square.appendChild(imgDiv);
     }
 }
 
