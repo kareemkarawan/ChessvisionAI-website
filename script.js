@@ -1,4 +1,4 @@
-const BACKEND_URL = "https://console.cloud.google.com/cloud-build/builds;region=global/2ebdd602-e8e7-48f9-807f-bcc23667d451?project=chessvision-ai-kk";
+const BACKEND_URL = "https://chessvisionapi-737375613667.europe-west9.run.app";
 
 let initialBoard = [
     ["br","bn","bb","bq","bk","bb","bn","br"],
