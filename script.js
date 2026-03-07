@@ -1,4 +1,4 @@
-const BACKEND_URL = "https://your-cloud-run-url.a.run.app";
+const BACKEND_URL = "https://chessvisionapi-737375613667.europe-west9.run.app";
 
 let initialBoard = [
     ["br","bn","bb","bq","bk","bb","bn","br"],
